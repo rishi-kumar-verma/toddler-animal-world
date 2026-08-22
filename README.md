@@ -45,6 +45,16 @@ npm run dev
 
 4. Open your browser and navigate to `http://localhost:5173`
 
+### Deploy to Vercel
+
+Pushes to the `main` branch are deployed automatically through GitHub Actions. Add these repository secrets in GitHub under **Settings > Secrets and variables > Actions**:
+
+- `VERCEL_TOKEN` - a Vercel access token
+- `VERCEL_ORG_ID` - the organization or account ID from the linked Vercel project
+- `VERCEL_PROJECT_ID` - the project ID from the linked Vercel project
+
+The workflow builds the app with `npm run build` before deploying. Failed builds are not deployed.
+
 ## Available Scripts
 
 - `npm run dev` - Start development server
