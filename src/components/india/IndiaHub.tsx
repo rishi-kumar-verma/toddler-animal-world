@@ -5,13 +5,34 @@ import { speakHindi } from '../../audio/hindiSpeech';
 import { playCheerSound, playPopSound } from '../../audio/animalSounds';
 import { playMagicSound } from '../../audio/soundEffects';
 import confetti from 'canvas-confetti';
-import { Sparkles, Trophy, MapPin, Flag } from 'lucide-react';
+import { Sparkles, Trophy, MapPin, Flag, Volume2, Search } from 'lucide-react';
 
 export const IndiaHub: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'states' | 'cities' | 'heroes' | 'quiz'>('states');
+  const [activeTab, setActiveTab] = useState<'states' | 'cities' | 'heroes' | 'quiz'>('heroes');
   const [selectedState, setSelectedState] = useState<IndianState>(INDIAN_STATES[0]);
   const [selectedCity, setSelectedCity] = useState<FamousCity>(FAMOUS_CITIES[0]);
   const [selectedHero, setSelectedHero] = useState<FreedomFighter>(FREEDOM_FIGHTERS[0]);
+  const [heroSearch, setHeroSearch] = useState('');
+  const [heroEraFilter, setHeroEraFilter] = useState<'all' | 'revolutionaries' | 'leaders' | 'women'>('all');
+
+  // Filtered Freedom Fighters
+  const filteredHeroes = FREEDOM_FIGHTERS.filter((hero) => {
+    const matchesSearch = hero.name.toLowerCase().includes(heroSearch.toLowerCase()) ||
+                          hero.title.toLowerCase().includes(heroSearch.toLowerCase()) ||
+                          hero.slogan.toLowerCase().includes(heroSearch.toLowerCase());
+    if (!matchesSearch) return false;
+
+    if (heroEraFilter === 'revolutionaries') {
+      return ['bhagat_singh', 'netaji', 'chandrashekhar_azad', 'mangal_pandey', 'ram_prasad_bismil', 'ashfaqulla_khan', 'sukhdev', 'shivaram_rajguru', 'birsa_munda'].includes(hero.id);
+    }
+    if (heroEraFilter === 'women') {
+      return ['rani_lakshmibai', 'sarojini_naidu', 'aruna_asaf_ali', 'kittur_chennamma', 'begum_hazrat_mahal'].includes(hero.id);
+    }
+    if (heroEraFilter === 'leaders') {
+      return ['gandhi', 'sardar_patel', 'ambedkar', 'bal_gangadhar_tilak', 'lala_lajpat_rai', 'bipin_chandra_pal', 'jawaharlal_nehru', 'lal_bahadur_shastri', 'khan_abdul_ghaffar_khan', 'subramania_bharati'].includes(hero.id);
+    }
+    return true;
+  });
 
   // Quiz State
   const [quizIndex, setQuizIndex] = useState(0);
@@ -19,6 +40,36 @@ export const IndiaHub: React.FC = () => {
   const [quizFeedback, setQuizFeedback] = useState<'correct' | 'wrong' | null>(null);
 
   const QUIZ_QUESTIONS = [
+    {
+      question: '"इंकलाब ज़िंदाबाद" का नारा किसने दिया था?',
+      correct: 'Shaheed Bhagat Singh 🔥',
+      options: ['Shaheed Bhagat Singh 🔥', 'Mahatma Gandhi 🕊️', 'Rani Lakshmibai ⚔️'],
+      speech: 'Shaheed Bhagat Singh gave the famous slogan Inquilab Zindabad!'
+    },
+    {
+      question: '"तुम मुझे खून दो, मैं तुम्हें आज़ादी दूंगा" किसने कहा था?',
+      correct: 'Netaji Subhas Chandra Bose 🎖️',
+      options: ['Netaji Subhas Chandra Bose 🎖️', 'Sardar Patel 🗿', 'Dr. B.R. Ambedkar 📜'],
+      speech: 'Netaji Subhas Chandra Bose of Azad Hind Fauj!'
+    },
+    {
+      question: '"स्वराज मेरा जन्मसिद्ध अधिकार है और मैं इसे लेकर रहूँगा" किसने कहा?',
+      correct: 'Lokmanya Bal Gangadhar Tilak 🦁',
+      options: ['Lokmanya Bal Gangadhar Tilak 🦁', 'Lal Bahadur Shastri 🌾', 'Pandit Nehru 🌹'],
+      speech: 'Lokmanya Bal Gangadhar Tilak!'
+    },
+    {
+      question: '"जय जवान, जय किसान" का प्रसिद्ध नारा किसने दिया था?',
+      correct: 'Lal Bahadur Shastri 🌾',
+      options: ['Lal Bahadur Shastri 🌾', 'Bhagat Singh 🔥', 'Chandra Shekhar Azad 🎯'],
+      speech: 'Lal Bahadur Shastri, champion of farmers and soldiers!'
+    },
+    {
+      question: '"सरफ़रोशी की तमन्ना अब हमारे दिल में है" किसकी रचना है?',
+      correct: 'Ram Prasad Bismil 📜',
+      options: ['Ram Prasad Bismil 📜', 'Mangal Pandey ⚔️', 'Birsa Munda 🏹'],
+      speech: 'Amar Shaheed Ram Prasad Bismil!'
+    },
     {
       question: 'गुलाबी शहर (The Pink City) किस शहर को कहा जाता है?',
       correct: 'Jaipur 🏰',
@@ -30,36 +81,6 @@ export const IndiaHub: React.FC = () => {
       correct: 'Agra 🕌',
       options: ['Delhi 🏛️', 'Agra 🕌', 'Bengaluru 🚀'],
       speech: 'Taj Mahal is in Agra, Uttar Pradesh!'
-    },
-    {
-      question: '"इंकलाब ज़िंदाबाद" का नारा किसने दिया था?',
-      correct: 'Shaheed Bhagat Singh 🔥',
-      options: ['Shaheed Bhagat Singh 🔥', 'Mahatma Gandhi 🕊️', 'Rani Lakshmibai ⚔️'],
-      speech: 'Shaheed Bhagat Singh gave the famous slogan Inquilab Zindabad!'
-    },
-    {
-      question: 'स्वर्ण मंदिर (Golden Temple) किस शहर में है?',
-      correct: 'Amritsar ✨',
-      options: ['Amritsar ✨', 'Jaipur 🌸', 'Chennai 🛕'],
-      speech: 'Golden Temple is in Amritsar, Punjab!'
-    },
-    {
-      question: 'भारत की राजधानी (Capital of India) कौन सी है?',
-      correct: 'New Delhi 🇮🇳',
-      options: ['New Delhi 🇮🇳', 'Mumbai 🌊', 'Kolkata 💛'],
-      speech: 'New Delhi is the proud capital of India!'
-    },
-    {
-      question: '"तुम मुझे खून दो, मैं तुम्हें आज़ादी दूंगा" किसने कहा था?',
-      correct: 'Netaji Subhas Chandra Bose 🎖️',
-      options: ['Netaji Subhas Chandra Bose 🎖️', 'Sardar Patel 🗿', 'Dr. B.R. Ambedkar 📜'],
-      speech: 'Netaji Subhas Chandra Bose of Azad Hind Fauj!'
-    },
-    {
-      question: 'गेटवे ऑफ इंडिया (Gateway of India) कहाँ स्थित है?',
-      correct: 'Mumbai 🌊',
-      options: ['Mumbai 🌊', 'Chennai 🛕', 'Dispur 🦏'],
-      speech: 'Gateway of India is in Mumbai, Maharashtra!'
     },
     {
       question: 'लौह पुरुष (Iron Man of India) किसे कहा जाता है?',
@@ -101,8 +122,8 @@ export const IndiaHub: React.FC = () => {
     playCheerSound();
     speakHindi(`${hero.name}! ${hero.title}! नारा: ${hero.slogan}! ${hero.contribution}`);
     confetti({
-      particleCount: 50,
-      spread: 70,
+      particleCount: 60,
+      spread: 75,
       colors: ['#FF9933', '#FFFFFF', '#128807']
     });
   };
@@ -145,12 +166,24 @@ export const IndiaHub: React.FC = () => {
                 अतुल्य भारत • Incredible India Hub 🇮🇳
               </h2>
               <p className="text-xs sm:text-sm font-bold text-slate-600">
-                Explore Indian States, Famous Cities & Legendary Freedom Fighters!
+                Complete Collection: {FREEDOM_FIGHTERS.length} Freedom Heroes, 12 States & 8 Famous Cities!
               </p>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-1.5 bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
+            <button
+              onClick={() => { playPopSound(); setActiveTab('heroes'); speakHindi('भारत के वीर स्वतंत्रता सेनानी!'); }}
+              className={`flex items-center gap-1 px-3.5 py-1.5 rounded-xl font-black text-xs sm:text-sm transition-all ${
+                activeTab === 'heroes'
+                  ? 'bg-emerald-600 text-white shadow-md scale-105'
+                  : 'text-slate-700 hover:bg-slate-200'
+              }`}
+            >
+              <Flag className="w-4 h-4" />
+              <span>सेनानी ({FREEDOM_FIGHTERS.length} Heroes)</span>
+            </button>
+
             <button
               onClick={() => { playPopSound(); setActiveTab('states'); speakHindi('भारत के राज्य और राजधानियाँ!'); }}
               className={`flex items-center gap-1 px-3 py-1.5 rounded-xl font-black text-xs sm:text-sm transition-all ${
@@ -176,18 +209,6 @@ export const IndiaHub: React.FC = () => {
             </button>
 
             <button
-              onClick={() => { playPopSound(); setActiveTab('heroes'); speakHindi('भारत के वीर स्वतंत्रता सेनानी!'); }}
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-xl font-black text-xs sm:text-sm transition-all ${
-                activeTab === 'heroes'
-                  ? 'bg-emerald-600 text-white shadow-md scale-105'
-                  : 'text-slate-700 hover:bg-slate-200'
-              }`}
-            >
-              <Flag className="w-4 h-4" />
-              <span>सेनानी (Heroes)</span>
-            </button>
-
-            <button
               onClick={() => { playPopSound(); setActiveTab('quiz'); speakHindi('अतुल्य भारत क्विज खेलें!'); }}
               className={`flex items-center gap-1 px-3 py-1.5 rounded-xl font-black text-xs sm:text-sm transition-all ${
                 activeTab === 'quiz'
@@ -201,7 +222,149 @@ export const IndiaHub: React.FC = () => {
           </div>
         </div>
 
-        {/* TAB 1: INDIAN STATES & CAPITALS */}
+        {/* TAB 1: COMPLETE LIST OF FREEDOM FIGHTERS */}
+        {activeTab === 'heroes' && (
+          <div className="space-y-6">
+            
+            {/* Filter & Search Toolbar */}
+            <div className="flex flex-wrap items-center justify-between gap-3 bg-white/90 p-3 rounded-2xl border border-slate-200 shadow-sm">
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => { playPopSound(); setHeroEraFilter('all'); }}
+                  className={`px-3.5 py-1.5 rounded-xl font-black text-xs sm:text-sm transition-all ${
+                    heroEraFilter === 'all'
+                      ? 'bg-emerald-600 text-white shadow'
+                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  }`}
+                >
+                  🌟 All ({FREEDOM_FIGHTERS.length})
+                </button>
+
+                <button
+                  onClick={() => { playPopSound(); setHeroEraFilter('revolutionaries'); }}
+                  className={`px-3.5 py-1.5 rounded-xl font-black text-xs sm:text-sm transition-all ${
+                    heroEraFilter === 'revolutionaries'
+                      ? 'bg-red-600 text-white shadow'
+                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  }`}
+                >
+                  🔥 Revolutionaries (क्रांतिकारी)
+                </button>
+
+                <button
+                  onClick={() => { playPopSound(); setHeroEraFilter('women'); }}
+                  className={`px-3.5 py-1.5 rounded-xl font-black text-xs sm:text-sm transition-all ${
+                    heroEraFilter === 'women'
+                      ? 'bg-purple-600 text-white shadow'
+                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  }`}
+                >
+                  👑 Women Freedom Fighters (वीरांगनाएं)
+                </button>
+
+                <button
+                  onClick={() => { playPopSound(); setHeroEraFilter('leaders'); }}
+                  className={`px-3.5 py-1.5 rounded-xl font-black text-xs sm:text-sm transition-all ${
+                    heroEraFilter === 'leaders'
+                      ? 'bg-blue-600 text-white shadow'
+                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  }`}
+                >
+                  🕊️ National Leaders & Thinkers
+                </button>
+              </div>
+
+              <div className="relative flex items-center min-w-[200px]">
+                <Search className="w-4 h-4 text-slate-400 absolute left-3" />
+                <input
+                  type="text"
+                  placeholder="Search Hero or Slogan..."
+                  value={heroSearch}
+                  onChange={(e) => setHeroSearch(e.target.value)}
+                  className="w-full pl-9 pr-3 py-1.5 rounded-xl border border-slate-300 text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
+                />
+              </div>
+            </div>
+
+            {/* Active Hero Showcase Banner */}
+            <div className={`p-6 sm:p-8 rounded-3xl bg-gradient-to-r ${selectedHero.colorGradient} text-white shadow-2xl border-4 border-white flex flex-col md:flex-row items-center justify-between gap-6 animate-fadeIn`}>
+              <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
+                <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-3xl overflow-hidden border-4 border-yellow-300 shadow-2xl bg-black/30 shrink-0 relative">
+                  <img
+                    src={selectedHero.imageUrl}
+                    alt={selectedHero.name}
+                    className="w-full h-full object-cover object-top"
+                  />
+                  <div className="absolute top-1 right-1 text-2xl bg-white/90 rounded-full px-1.5 py-0.5 shadow">
+                    {selectedHero.emoji}
+                  </div>
+                </div>
+                <div>
+                  <div className="inline-block bg-white/90 text-slate-950 text-xs font-black px-3 py-1 rounded-full mb-1">
+                    {selectedHero.title}
+                  </div>
+                  <h3 className="text-3xl sm:text-4xl font-black">{selectedHero.name}</h3>
+                  <div className="my-2 bg-black/30 px-4 py-2 rounded-2xl inline-block border border-white/20">
+                    <p className="font-black text-base sm:text-lg text-yellow-200">
+                      📢 नारा: "{selectedHero.slogan}"
+                    </p>
+                  </div>
+                  <p className="text-sm font-semibold text-white/95 max-w-xl">
+                    {selectedHero.contribution}
+                  </p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => handleHeroClick(selectedHero)}
+                className="px-6 py-4 rounded-2xl bg-amber-400 hover:bg-amber-300 active:scale-95 text-slate-950 font-black text-base shadow-xl border-4 border-white flex items-center gap-2 cursor-pointer shrink-0 transition-transform"
+              >
+                <Volume2 className="w-6 h-6 text-orange-600 animate-pulse" />
+                <span>जय हिन्द (LISTEN SLOGAN)</span>
+              </button>
+            </div>
+
+            {/* Complete Heroes Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+              {filteredHeroes.map((hero) => (
+                <button
+                  key={hero.id}
+                  onClick={() => handleHeroClick(hero)}
+                  className={`p-3.5 sm:p-4 rounded-3xl bg-gradient-to-br ${hero.colorGradient} border-4 ${
+                    selectedHero.id === hero.id ? 'border-yellow-300 ring-4 ring-yellow-400 scale-102' : hero.borderColor
+                  } text-white shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 active:scale-95 text-left flex flex-col justify-between cursor-pointer`}
+                >
+                  <div className="w-full aspect-square rounded-2xl overflow-hidden mb-2.5 relative border-2 border-white/40 shadow bg-black/20">
+                    <img
+                      src={hero.imageUrl}
+                      alt={hero.name}
+                      loading="lazy"
+                      className="w-full h-full object-cover object-top"
+                    />
+                    <span className="absolute top-1.5 right-1.5 text-2xl bg-white/90 rounded-full px-1.5 py-0.5 shadow">
+                      {hero.emoji}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h4 className="text-lg sm:text-xl font-black text-white drop-shadow-md">
+                      {hero.name}
+                    </h4>
+                    <p className="text-xs font-bold text-yellow-200 mt-0.5 line-clamp-1">
+                      {hero.title}
+                    </p>
+                    <p className="text-xs font-semibold text-white/90 italic mt-1 line-clamp-2">
+                      "{hero.slogan}"
+                    </p>
+                  </div>
+                </button>
+              ))}
+            </div>
+
+          </div>
+        )}
+
+        {/* TAB 2: INDIAN STATES & CAPITALS */}
         {activeTab === 'states' && (
           <div className="space-y-6">
             
@@ -283,7 +446,7 @@ export const IndiaHub: React.FC = () => {
           </div>
         )}
 
-        {/* TAB 2: FAMOUS CITIES */}
+        {/* TAB 3: FAMOUS CITIES */}
         {activeTab === 'cities' && (
           <div className="space-y-6">
             
@@ -337,81 +500,6 @@ export const IndiaHub: React.FC = () => {
                     <h4 className="text-xl font-black text-slate-900">{city.name}</h4>
                     <p className="text-xs font-bold text-amber-700">{city.nickname}</p>
                     <p className="text-xs font-semibold text-slate-600 mt-1">{city.state}</p>
-                  </div>
-                </button>
-              ))}
-            </div>
-
-          </div>
-        )}
-
-        {/* TAB 3: FREEDOM FIGHTERS */}
-        {activeTab === 'heroes' && (
-          <div className="space-y-6">
-            
-            {/* Active Hero Showcase */}
-            <div className={`p-6 sm:p-8 rounded-3xl bg-gradient-to-r ${selectedHero.colorGradient} text-white shadow-2xl border-4 border-white flex flex-col md:flex-row items-center justify-between gap-6`}>
-              <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
-                <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-3xl overflow-hidden border-4 border-white shadow-2xl bg-black/30 shrink-0">
-                  <img
-                    src={selectedHero.imageUrl}
-                    alt={selectedHero.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div>
-                  <div className="inline-block bg-white/90 text-slate-950 text-xs font-black px-3 py-1 rounded-full mb-1">
-                    {selectedHero.title}
-                  </div>
-                  <h3 className="text-3xl sm:text-4xl font-black">{selectedHero.name} {selectedHero.emoji}</h3>
-                  <div className="my-2 bg-black/30 px-4 py-2 rounded-2xl inline-block border border-white/20">
-                    <p className="font-black text-base sm:text-lg text-yellow-200">
-                      📢 Slogan: "{selectedHero.slogan}"
-                    </p>
-                  </div>
-                  <p className="text-sm font-semibold text-white/95 max-w-xl">
-                    {selectedHero.contribution}
-                  </p>
-                </div>
-              </div>
-
-              <button
-                onClick={() => handleHeroClick(selectedHero)}
-                className="px-6 py-4 rounded-2xl bg-amber-400 hover:bg-amber-300 active:scale-95 text-slate-950 font-black text-base shadow-xl border-4 border-white flex items-center gap-2 cursor-pointer shrink-0 transition-transform"
-              >
-                <Flag className="w-6 h-6 text-orange-600 animate-pulse" />
-                <span>जय हिन्द (PLAY SLOGAN)</span>
-              </button>
-            </div>
-
-            {/* Heroes Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {FREEDOM_FIGHTERS.map((hero) => (
-                <button
-                  key={hero.id}
-                  onClick={() => handleHeroClick(hero)}
-                  className={`p-4 rounded-3xl bg-gradient-to-br ${hero.colorGradient} border-4 ${
-                    selectedHero.id === hero.id ? 'border-yellow-300 ring-4 ring-yellow-400 scale-102' : hero.borderColor
-                  } text-white shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 active:scale-95 text-left flex flex-col justify-between cursor-pointer`}
-                >
-                  <div className="w-full aspect-square rounded-2xl overflow-hidden mb-3 relative border-2 border-white/40 shadow bg-black/20">
-                    <img
-                      src={hero.imageUrl}
-                      alt={hero.name}
-                      loading="lazy"
-                      className="w-full h-full object-cover"
-                    />
-                    <span className="absolute top-2 right-2 text-2xl bg-white/90 rounded-full px-1.5 py-0.5 shadow">
-                      {hero.emoji}
-                    </span>
-                  </div>
-
-                  <div>
-                    <h4 className="text-xl font-black text-white drop-shadow-md">{hero.name}</h4>
-                    <p className="text-xs font-bold text-yellow-200 mt-0.5">{hero.title}</p>
-                    <p className="text-xs font-semibold text-white/90 italic mt-1.5 line-clamp-2">
-                      "{hero.slogan}"
-                    </p>
                   </div>
                 </button>
               ))}

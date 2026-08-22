@@ -3,6 +3,9 @@ import { Navbar } from './components/Navbar';
 import { HubDashboard } from './components/HubDashboard';
 import { IndiaHub } from './components/india/IndiaHub';
 import { HindiHub } from './components/hindi/HindiHub';
+import { MusicHub } from './components/music/MusicHub';
+import { VehiclesHub } from './components/vehicles/VehiclesHub';
+import { FruitsHub } from './components/fruits/FruitsHub';
 import { SuperheroesHub } from './components/superheroes/SuperheroesHub';
 import { ScienceHub } from './components/science/ScienceHub';
 import { MathHub } from './components/math/MathHub';
@@ -46,8 +49,8 @@ export default function App() {
             Kids Learning & Games Hub 🚀
           </h1>
 
-          <p className="text-xl sm:text-2xl font-bold text-slate-900 max-w-xl mb-6 drop-shadow-sm">
-            Marvel Superheroes • Science & Planets • Math & Shapes • Geography & History • Animal World
+          <p className="text-lg sm:text-xl font-bold text-slate-900 max-w-2xl mb-6 drop-shadow-sm">
+            Incredible India • Hindi • Marvel Superheroes • Piano & Music • Vehicles • Fruits & Veggies • Science & Planets • Math • Geography • History • Animal World
           </p>
 
           <div className="flex flex-wrap justify-center gap-2 mb-8 max-w-lg">
@@ -98,6 +101,9 @@ export default function App() {
             )}
             {currentCategory === 'india' && <IndiaHub />}
             {currentCategory === 'hindi' && <HindiHub />}
+            {currentCategory === 'music' && <MusicHub />}
+            {currentCategory === 'vehicles' && <VehiclesHub />}
+            {currentCategory === 'fruits' && <FruitsHub />}
             {currentCategory === 'superheroes' && <SuperheroesHub />}
             {currentCategory === 'science' && <ScienceHub />}
             {currentCategory === 'math' && <MathHub />}

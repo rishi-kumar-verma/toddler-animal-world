@@ -5,11 +5,51 @@ export type HubCategory =
   | 'india'
   | 'hindi'
   | 'superheroes'
+  | 'music'
+  | 'vehicles'
+  | 'fruits'
   | 'science'
   | 'math'
   | 'geography'
   | 'history'
   | 'animals';
+
+export interface MusicalInstrument {
+  id: string;
+  name: string;
+  hindiName: string;
+  emoji: string;
+  imageUrl: string;
+  category: 'keyboard' | 'percussion' | 'strings' | 'wind' | 'traditional';
+  soundFreq: number;
+  funFact: string;
+  colorGradient: string;
+}
+
+export interface Vehicle {
+  id: string;
+  name: string;
+  hindiName: string;
+  emoji: string;
+  imageUrl: string;
+  category: 'rescue' | 'land' | 'air' | 'water' | 'space';
+  soundType: 'siren' | 'horn' | 'jet' | 'train' | 'helicopter' | 'engine';
+  funFact: string;
+  colorGradient: string;
+}
+
+export interface FruitVeggie {
+  id: string;
+  name: string;
+  hindiName: string;
+  emoji: string;
+  imageUrl: string;
+  type: 'fruit' | 'veggie';
+  colorName: string;
+  taste: string;
+  benefit: string;
+  colorGradient: string;
+}
 
 export interface IndianState {
   id: string;

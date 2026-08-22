@@ -50,6 +50,45 @@ const HUB_CARDS: HubCard[] = [
     speechGreeting: 'नमस्ते! हिन्दी पाठशाला में आपका स्वागत है! आओ वर्णमाला और गिनती सीखें!'
   },
   {
+    id: 'music',
+    title: 'संगीत (Music & Piano)',
+    subtitle: 'Rainbow Piano, Drums, Guitar & Nursery Rhymes!',
+    emoji: '🎹',
+    badge: 'Piano & Instruments',
+    bgGradient: 'from-purple-600 via-indigo-600 to-pink-500',
+    borderColor: 'border-purple-300',
+    textColor: 'text-white',
+    bestAges: ['2', '3', '4'],
+    itemsPreview: ['🎹 Rainbow Piano', '🥁 Drums', '🎸 Guitar', '⭐ Twinkle Star'],
+    speechGreeting: 'Welcome to Music and Piano World! Let us play colorful tunes!'
+  },
+  {
+    id: 'vehicles',
+    title: 'वाहन (Vehicles & Cars)',
+    subtitle: 'Fire Trucks, Trains, Airplanes & Rockets!',
+    emoji: '🚒',
+    badge: 'Vehicles & Sounds',
+    bgGradient: 'from-amber-500 via-orange-500 to-red-600',
+    borderColor: 'border-amber-300',
+    textColor: 'text-white',
+    bestAges: ['2', '3', '4'],
+    itemsPreview: ['🚒 Fire Truck', '🚂 Train Choo-Choo', '✈️ Jet Airplane', '🚀 Rocket'],
+    speechGreeting: 'Beep Beep! Welcome to Vehicles and Transport World!'
+  },
+  {
+    id: 'fruits',
+    title: 'फल व सब्जियां (Fruits & Veggies)',
+    subtitle: 'Delicious Fruits, Crunchy Veggies & Smoothie Maker!',
+    emoji: '🍎',
+    badge: 'Healthy Foods',
+    bgGradient: 'from-emerald-500 via-teal-600 to-green-700',
+    borderColor: 'border-emerald-300',
+    textColor: 'text-white',
+    bestAges: ['2', '3', '4'],
+    itemsPreview: ['🍎 Red Apple', '🍌 Sweet Banana', '🥭 King Mango', '🥤 Smoothie Maker'],
+    speechGreeting: 'Yum! Welcome to Fruits and Veggies World! Let us make a healthy smoothie!'
+  },
+  {
     id: 'superheroes',
     title: 'Marvel Superheroes',
     subtitle: 'Interactive Hero Powers & Action Sounds!',

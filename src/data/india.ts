@@ -330,5 +330,181 @@ export const FREEDOM_FIGHTERS: FreedomFighter[] = [
     contribution: 'Celebrated poet, inspiring orator, and fearless freedom fighter who championed women\'s leadership across India.',
     colorGradient: 'from-purple-600 via-pink-600 to-rose-700',
     borderColor: 'border-pink-400'
+  },
+  {
+    id: 'mangal_pandey',
+    name: 'Mangal Pandey',
+    title: 'Hero of 1857 Sepoy Mutiny (प्रथम स्वतंत्रता संग्राम नायक)',
+    slogan: 'Maro Firangi Ko! (मारो फिरंगी को)',
+    emoji: '⚔️',
+    imageUrl: '/images/freedom_fighters/mangal_pandey.jpg',
+    contribution: 'Sparked the historic Indian Rebellion of 1857 at Barrackpore, igniting the nationwide flame of independence.',
+    colorGradient: 'from-red-600 via-rose-700 to-amber-700',
+    borderColor: 'border-red-400'
+  },
+  {
+    id: 'bal_gangadhar_tilak',
+    name: 'Lokmanya Bal Gangadhar Tilak',
+    title: 'Father of Indian Unrest (लोकमान्य)',
+    slogan: 'Swaraj is my birthright and I shall have it! (स्वराज मेरा जन्मसिद्ध अधिकार है)',
+    emoji: '🦁',
+    imageUrl: '/images/freedom_fighters/bal_gangadhar_tilak.jpg',
+    contribution: 'Pioneered the concept of complete Swaraj and mobilized masses through Sarvajanik Ganeshotsav festivals.',
+    colorGradient: 'from-amber-600 via-orange-600 to-red-700',
+    borderColor: 'border-amber-400'
+  },
+  {
+    id: 'lala_lajpat_rai',
+    name: 'Lala Lajpat Rai',
+    title: 'Lion of Punjab (पंजाब केसरी)',
+    slogan: 'Every blow on my body will be a nail in the coffin of the British Empire!',
+    emoji: '🦁',
+    imageUrl: '/images/freedom_fighters/lala_lajpat_rai.jpg',
+    contribution: 'Key leader of the Lal-Bal-Pal triumvirate who led fierce protests against the Simon Commission.',
+    colorGradient: 'from-yellow-500 via-amber-600 to-red-600',
+    borderColor: 'border-yellow-400'
+  },
+  {
+    id: 'bipin_chandra_pal',
+    name: 'Bipin Chandra Pal',
+    title: 'Father of Revolutionary Thoughts in India',
+    slogan: 'National education and self-reliance lead to true freedom!',
+    emoji: '✍️',
+    imageUrl: '/images/freedom_fighters/bipin_chandra_pal.jpg',
+    contribution: 'Stalwart of the Lal-Bal-Pal trio who preached Swadeshi and total boycott of foreign goods.',
+    colorGradient: 'from-emerald-600 via-teal-700 to-slate-900',
+    borderColor: 'border-emerald-400'
+  },
+  {
+    id: 'jawaharlal_nehru',
+    name: 'Pandit Jawaharlal Nehru',
+    title: 'Architect of Modern India (चाचा नेहरू)',
+    slogan: 'Aaram Haram Hai! At the stroke of midnight, India will awake to life and freedom!',
+    emoji: '🌹',
+    imageUrl: '/images/freedom_fighters/jawaharlal_nehru.jpg',
+    contribution: 'First Prime Minister of India, who laid the strong foundation of science, space, and modern democratic institutions.',
+    colorGradient: 'from-rose-500 via-pink-600 to-indigo-700',
+    borderColor: 'border-rose-300'
+  },
+  {
+    id: 'lal_bahadur_shastri',
+    name: 'Lal Bahadur Shastri',
+    title: 'Champion of Farmers & Soldiers (शास्त्री जी)',
+    slogan: 'Jai Jawan, Jai Kisan! (जय जवान, जय किसान)',
+    emoji: '🌾',
+    imageUrl: '/images/freedom_fighters/lal_bahadur_shastri.jpg',
+    contribution: 'Second Prime Minister of India, renowned for his simplicity, integrity, and the Green & White revolutions.',
+    colorGradient: 'from-green-600 via-emerald-600 to-amber-600',
+    borderColor: 'border-green-400'
+  },
+  {
+    id: 'ram_prasad_bismil',
+    name: 'Ram Prasad Bismil',
+    title: 'Kakori Revolutionary & Patriotic Poet',
+    slogan: 'Sarfaroshi Ki Tamanna Ab Hamare Dil Mein Hai! (सरफ़रोशी की तमन्ना अब हमारे दिल में है)',
+    emoji: '📜',
+    imageUrl: '/images/freedom_fighters/ram_prasad_bismil.jpg',
+    contribution: 'Leader of the Hindustan Socialist Republican Association who inspired the youth through his immortal poetry.',
+    colorGradient: 'from-red-600 via-orange-600 to-yellow-600',
+    borderColor: 'border-red-400'
+  },
+  {
+    id: 'ashfaqulla_khan',
+    name: 'Ashfaqulla Khan',
+    title: 'Immortal Kakori Hero & Symbol of Unity',
+    slogan: 'We have only one dream: complete freedom for our beloved motherland India!',
+    emoji: '🕊️',
+    imageUrl: '/images/freedom_fighters/ashfaqulla_khan.jpg',
+    contribution: 'Brave revolutionary who sacrificed his life with a smile, establishing an eternal bond of Hindu-Muslim brotherhood.',
+    colorGradient: 'from-teal-600 via-emerald-700 to-slate-900',
+    borderColor: 'border-teal-400'
+  },
+  {
+    id: 'sukhdev',
+    name: 'Sukhdev Thapar',
+    title: 'Mastermind of the Freedom Movement (सुखदेव)',
+    slogan: 'Real patriotism is waking up the nation with fearless action!',
+    emoji: '🔥',
+    imageUrl: '/images/freedom_fighters/sukhdev.jpg',
+    contribution: 'Chief organizer of HSRA and comrade of Bhagat Singh who fearlessly embraced martyrdom at age 23.',
+    colorGradient: 'from-amber-600 via-red-600 to-stone-900',
+    borderColor: 'border-amber-400'
+  },
+  {
+    id: 'shivaram_rajguru',
+    name: 'Shivaram Rajguru',
+    title: 'Fearless Revolutionary Marksman (राजगुरु)',
+    slogan: 'Sacrifice for the motherland is the greatest joy of life!',
+    emoji: '🎯',
+    imageUrl: '/images/freedom_fighters/shivaram_rajguru.jpg',
+    contribution: 'Expert marksman from Maharashtra who stood shoulder-to-shoulder with Bhagat Singh and Sukhdev.',
+    colorGradient: 'from-orange-600 via-red-700 to-slate-900',
+    borderColor: 'border-orange-400'
+  },
+  {
+    id: 'birsa_munda',
+    name: 'Birsa Munda',
+    title: 'Tribal Freedom Leader (धरती आबा)',
+    slogan: 'Abua Raj Ete Jana, Maharani Raj Tundu Jana! (Our Kingdom Has Begun!)',
+    emoji: '🏹',
+    imageUrl: '/images/freedom_fighters/birsa_munda.jpg',
+    contribution: 'Led the legendary Ulgulan tribal freedom movement in Chhotanagpur, protecting indigenous land and rights.',
+    colorGradient: 'from-emerald-600 via-green-700 to-amber-700',
+    borderColor: 'border-emerald-400'
+  },
+  {
+    id: 'aruna_asaf_ali',
+    name: 'Aruna Asaf Ali',
+    title: 'Heroine of 1942 Quit India Movement',
+    slogan: 'Hoist the Tricolor Flag with Pride! Karo Ya Maro!',
+    emoji: '🇮🇳',
+    imageUrl: '/images/freedom_fighters/aruna_asaf_ali.jpg',
+    contribution: 'Fearlessly hoisted the Indian National Flag at Gowalia Tank maidan in Mumbai during Quit India Movement.',
+    colorGradient: 'from-rose-600 via-purple-700 to-indigo-900',
+    borderColor: 'border-rose-400'
+  },
+  {
+    id: 'khan_abdul_ghaffar_khan',
+    name: 'Khan Abdul Ghaffar Khan',
+    title: 'Frontier Gandhi (सीमांत गांधी / बादशाह खान)',
+    slogan: 'Non-violence and service to humanity is the highest strength!',
+    emoji: '🕊️',
+    imageUrl: '/images/freedom_fighters/khan_abdul_ghaffar_khan.jpg',
+    contribution: 'Founded the Khudai Khidmatgar (Servants of God) movement, leading 100,000 non-violent freedom fighters.',
+    colorGradient: 'from-amber-500 via-stone-600 to-slate-900',
+    borderColor: 'border-amber-400'
+  },
+  {
+    id: 'subramania_bharati',
+    name: 'Mahakavi Subramania Bharati',
+    title: 'Patriot Poet of Tamil Nadu (महाकवि भारती)',
+    slogan: 'Freedom, Freedom, Freedom! To the Pariahs, to the Tiyas, to the Pulayas, Freedom!',
+    emoji: '🦚',
+    imageUrl: '/images/freedom_fighters/subramania_bharati.jpg',
+    contribution: 'Ignited the flame of patriotism in South India with his electrifying Tamil freedom poems and songs.',
+    colorGradient: 'from-yellow-500 via-amber-600 to-red-600',
+    borderColor: 'border-yellow-400'
+  },
+  {
+    id: 'kittur_chennamma',
+    name: 'Rani Kittur Chennamma',
+    title: 'First Queen to Fight the British in Karnataka',
+    slogan: 'Why should we pay you tax? Are you our brother, or our kin?!',
+    emoji: '⚔️',
+    imageUrl: '/images/freedom_fighters/kittur_chennamma.jpg',
+    contribution: 'Led an armed rebellion against the British East India Company in 1824, 33 years before 1857.',
+    colorGradient: 'from-rose-600 via-red-600 to-purple-900',
+    borderColor: 'border-rose-400'
+  },
+  {
+    id: 'begum_hazrat_mahal',
+    name: 'Begum Hazrat Mahal',
+    title: 'Warrior Queen of Awadh (बेगम हज़रत महल)',
+    slogan: 'Fight to protect our culture, honor, and soil from colonial rule!',
+    emoji: '👑',
+    imageUrl: '/images/freedom_fighters/begum_hazrat_mahal.jpg',
+    contribution: 'Fiercely led the 1857 First War of Independence in Lucknow and Awadh, organizing women and military forces.',
+    colorGradient: 'from-purple-600 via-pink-600 to-amber-600',
+    borderColor: 'border-purple-400'
   }
 ];
