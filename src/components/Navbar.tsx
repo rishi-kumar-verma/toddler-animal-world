@@ -1,19 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Maximize, Minimize, Lock, Unlock, Grid, Box, HelpCircle } from 'lucide-react';
+import { Maximize, Minimize, Lock, Unlock, Home, Sparkles } from 'lucide-react';
+import { AgeCategory, HubCategory } from '../types/hub';
 import { playPopSound, playCheerSound } from '../audio/animalSounds';
 
-export type GameMode = 'grid' | '3d' | 'quiz';
-
 interface NavbarProps {
-  currentMode: GameMode;
-  onSelectMode: (mode: GameMode) => void;
+  currentCategory: HubCategory;
+  onSelectCategory: (cat: HubCategory) => void;
+  currentAge: AgeCategory;
+  onSelectAge: (age: AgeCategory) => void;
   isLocked: boolean;
   onToggleLock: (locked: boolean) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
-  currentMode,
-  onSelectMode,
+  currentCategory,
+  onSelectCategory,
+  currentAge,
+  onSelectAge,
   isLocked,
   onToggleLock,
 }) => {
@@ -36,18 +39,22 @@ export const Navbar: React.FC<NavbarProps> = ({
     }
   };
 
-  const handleModeChange = (mode: GameMode) => {
+  const handleAgeChange = (age: AgeCategory) => {
     if (isLocked) return;
     playPopSound();
-    onSelectMode(mode);
+    onSelectAge(age);
   };
 
-  // Immediate Lock when unlocked, 3s hold when locked
+  const handleHomeClick = () => {
+    if (isLocked) return;
+    playPopSound();
+    onSelectCategory('hub');
+  };
+
   const handleLockClick = () => {
     if (!isLocked) {
       onToggleLock(true);
       playPopSound();
-      // Optionally request fullscreen on lock for baby safety
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen().catch(() => {});
       }
@@ -86,58 +93,82 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-40 h-14 bg-white/95 backdrop-blur-md border-b-2 border-yellow-300 px-2 sm:px-4 flex items-center justify-between shadow-sm select-none">
+      <header className="fixed top-0 left-0 right-0 z-40 h-16 bg-white/95 backdrop-blur-md border-b-4 border-amber-300 px-3 sm:px-5 flex items-center justify-between shadow-md select-none">
         
-        {/* Brand Title */}
-        <div className="flex items-center gap-1">
-          <span className="text-2xl animate-bounce">🐮</span>
-          <h1 className="text-base font-black text-slate-800 tracking-tight hidden lg:block">
-            Baby Animal World
-          </h1>
+        {/* Brand & Home */}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleHomeClick}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-2xl font-black text-sm transition-all transform active:scale-95 ${
+              currentCategory === 'hub'
+                ? 'bg-gradient-to-r from-amber-400 to-yellow-400 text-slate-950 shadow-md border-2 border-amber-500 scale-105'
+                : 'bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300'
+            }`}
+            title="Go to Games Hub"
+          >
+            <Home className="w-4 h-4 text-slate-900" />
+            <span className="hidden xs:inline">Hub</span>
+          </button>
+
+          <div className="hidden md:flex items-center gap-1.5 text-slate-800 font-extrabold text-sm ml-2">
+            <span className="text-xl animate-bounce">🌟</span>
+            <span className="bg-gradient-to-r from-amber-600 to-pink-600 bg-clip-text text-transparent">
+              Kids Learning & Games Hub
+            </span>
+          </div>
         </div>
 
-        {/* Mode Switcher Tabs (Hidden when Baby Lock is ON) */}
+        {/* Age Selector Tabs (Hidden when Baby Lock is ON) */}
         {!isLocked ? (
-          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
+          <div className="flex items-center gap-1 sm:gap-1.5 bg-amber-50/80 p-1 sm:p-1.5 rounded-2xl border-2 border-amber-200 shadow-inner">
             <button
-              onClick={() => handleModeChange('grid')}
-              className={`flex items-center gap-1 px-2.5 py-1 rounded-lg font-extrabold text-xs transition-all ${
-                currentMode === 'grid'
-                  ? 'bg-yellow-400 text-slate-950 shadow-sm border border-yellow-500 scale-105'
-                  : 'text-slate-600 hover:text-slate-900'
+              onClick={() => handleAgeChange('all')}
+              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl font-black text-xs sm:text-sm transition-all flex items-center gap-1 ${
+                currentAge === 'all'
+                  ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-md scale-105 ring-2 ring-indigo-300'
+                  : 'text-slate-700 hover:bg-amber-100'
               }`}
             >
-              <Grid className="w-3.5 h-3.5" />
-              <span className="hidden xs:inline">Zoo Grid</span>
+              <Sparkles className="w-3 h-3 text-yellow-300" />
+              <span>All Ages</span>
             </button>
 
             <button
-              onClick={() => handleModeChange('3d')}
-              className={`flex items-center gap-1 px-2.5 py-1 rounded-lg font-extrabold text-xs transition-all ${
-                currentMode === '3d'
-                  ? 'bg-pink-400 text-white shadow-sm border border-pink-500 scale-105'
-                  : 'text-slate-600 hover:text-slate-900'
+              onClick={() => handleAgeChange('2')}
+              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl font-black text-xs sm:text-sm transition-all ${
+                currentAge === '2'
+                  ? 'bg-gradient-to-r from-pink-500 to-rose-400 text-white shadow-md scale-105 ring-2 ring-pink-300'
+                  : 'text-slate-700 hover:bg-amber-100'
               }`}
             >
-              <Box className="w-3.5 h-3.5" />
-              <span className="hidden xs:inline">3D Box</span>
+              🐣 Age 2
             </button>
 
             <button
-              onClick={() => handleModeChange('quiz')}
-              className={`flex items-center gap-1 px-2.5 py-1 rounded-lg font-extrabold text-xs transition-all ${
-                currentMode === 'quiz'
-                  ? 'bg-indigo-500 text-white shadow-sm border border-indigo-600 scale-105'
-                  : 'text-slate-600 hover:text-slate-900'
+              onClick={() => handleAgeChange('3')}
+              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl font-black text-xs sm:text-sm transition-all ${
+                currentAge === '3'
+                  ? 'bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 shadow-md scale-105 ring-2 ring-amber-300'
+                  : 'text-slate-700 hover:bg-amber-100'
               }`}
             >
-              <HelpCircle className="w-3.5 h-3.5" />
-              <span className="hidden xs:inline">Quiz</span>
+              🦁 Age 3
+            </button>
+
+            <button
+              onClick={() => handleAgeChange('4')}
+              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl font-black text-xs sm:text-sm transition-all ${
+                currentAge === '4'
+                  ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-md scale-105 ring-2 ring-emerald-300'
+                  : 'text-slate-700 hover:bg-amber-100'
+              }`}
+            >
+              🚀 Age 4+
             </button>
           </div>
         ) : (
-          <div className="bg-amber-100 border border-amber-400 px-3 py-1 rounded-xl flex items-center gap-1.5 animate-pulse">
-            <Lock className="w-4 h-4 text-amber-700" />
+          <div className="bg-amber-100 border-2 border-amber-400 px-3 py-1.5 rounded-2xl flex items-center gap-1.5 animate-pulse">
+            <Lock className="w-4 h-4 text-amber-800" />
             <span className="font-extrabold text-amber-950 text-xs sm:text-sm">
               🔒 Toddler Lock Active
             </span>
@@ -145,11 +176,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         )}
 
         {/* Right Action Controls */}
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           
           {/* Baby Lock / Unlock Button */}
           {isLocked ? (
-            /* UNLOCK BUTTON (Requires 3s Hold) */
             <button
               onMouseDown={startHoldUnlock}
               onMouseUp={stopHoldUnlock}
@@ -157,15 +187,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               onTouchStart={startHoldUnlock}
               onTouchEnd={stopHoldUnlock}
               onTouchCancel={stopHoldUnlock}
-              className="relative overflow-hidden flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-black text-xs sm:text-sm bg-red-600 text-white border-2 border-yellow-300 shadow-lg cursor-pointer animate-pulse"
+              className="relative overflow-hidden flex items-center gap-1.5 px-3 py-2 rounded-2xl font-black text-xs sm:text-sm bg-red-600 text-white border-2 border-yellow-300 shadow-lg cursor-pointer animate-pulse"
             >
               <Lock className="w-4 h-4 text-yellow-300" />
-              <span>HOLD 3S TO UNLOCK 🔓</span>
+              <span>HOLD 3S 🔓</span>
 
-              {/* Progress Bar Indicator */}
               {lockHoldProgress > 0 && (
                 <div
-                  className="absolute inset-0 bg-yellow-400/90 transition-all duration-75 pointer-events-none flex items-center justify-center text-slate-950 font-black text-xs"
+                  className="absolute inset-0 bg-yellow-400/95 transition-all duration-75 pointer-events-none flex items-center justify-center text-slate-950 font-black text-xs"
                   style={{ width: `${lockHoldProgress}%` }}
                 >
                   {lockHoldProgress}%
@@ -173,21 +202,20 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </button>
           ) : (
-            /* LOCK BUTTON (Click once to lock) */
             <button
               onClick={handleLockClick}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-extrabold text-xs sm:text-sm bg-emerald-400 text-slate-950 border border-emerald-500 shadow-sm hover:bg-emerald-500 transition-transform active:scale-95 cursor-pointer"
+              className="flex items-center gap-1 px-3 py-2 rounded-2xl font-black text-xs sm:text-sm bg-emerald-400 text-slate-950 border-2 border-emerald-500 shadow-sm hover:bg-emerald-500 transition-transform active:scale-95 cursor-pointer"
             >
               <Unlock className="w-4 h-4" />
-              <span>Baby Lock</span>
+              <span className="hidden sm:inline">Toddler Lock</span>
             </button>
           )}
 
-          {/* Fullscreen Button (Hidden when locked to protect baby) */}
+          {/* Fullscreen Button */}
           {!isLocked && (
             <button
               onClick={toggleFullscreen}
-              className="p-1.5 bg-yellow-200 hover:bg-yellow-300 border border-yellow-400 text-slate-900 rounded-xl font-bold shadow-sm active:scale-95"
+              className="p-2 bg-yellow-200 hover:bg-yellow-300 border-2 border-yellow-400 text-slate-900 rounded-2xl font-bold shadow-sm active:scale-95"
               title="Toggle Fullscreen"
             >
               {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
@@ -199,10 +227,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Floating Parent Unlock Banner when Baby Lock is ON */}
       {isLocked && (
-        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-red-600 text-white px-4 py-2 rounded-full shadow-2xl border-2 border-yellow-300 flex items-center gap-2 animate-bounce max-w-[95vw]">
-          <Lock className="w-4 h-4 text-yellow-300 shrink-0" />
-          <span className="font-extrabold text-xs sm:text-sm tracking-wide text-center">
-            🔒 SCREEN LOCKED FOR BABY! Press & Hold "HOLD 3S TO UNLOCK" for 3 seconds.
+        <div className="fixed top-18 left-1/2 -translate-x-1/2 z-50 bg-red-600 text-white px-5 py-2.5 rounded-full shadow-2xl border-2 border-yellow-300 flex items-center gap-2 animate-bounce max-w-[95vw]">
+          <Lock className="w-5 h-5 text-yellow-300 shrink-0" />
+          <span className="font-black text-xs sm:text-sm tracking-wide text-center">
+            🔒 SCREEN LOCKED! Press & hold "HOLD 3S" button to unlock.
           </span>
         </div>
       )}

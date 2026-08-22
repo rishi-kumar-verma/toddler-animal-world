@@ -60,7 +60,7 @@ export const AnimalGrid: React.FC = () => {
         </div>
       )}
 
-      {/* Animal Card Grid without bottom sound badges */}
+      {/* Animal Card Grid with Real Photographs */}
       <div className="w-full h-auto sm:h-full grid grid-cols-2 sm:grid-cols-4 sm:grid-rows-4 gap-2.5 sm:gap-2.5 pb-6 sm:pb-0">
         {ANIMALS.map((animal) => {
           const isActive = activeAnimalId === animal.id;
@@ -70,11 +70,11 @@ export const AnimalGrid: React.FC = () => {
               onClick={(e) => handleAnimalTouch(animal, e)}
               onTouchStart={(e) => handleAnimalTouch(animal, e)}
               className={`
-                relative cursor-pointer rounded-2xl p-2.5 sm:p-3
+                relative cursor-pointer rounded-2xl p-2 sm:p-2.5
                 bg-gradient-to-br ${animal.bgGradient}
                 border-3 ${animal.borderColor}
                 shadow-md hover:shadow-xl
-                flex flex-col items-center justify-center overflow-hidden
+                flex flex-col items-center justify-between overflow-hidden
                 transition-all duration-200 transform
                 ${isActive ? 'scale-105 rotate-1 ring-4 ' + animal.ringColor : 'hover:scale-102 active:scale-95'}
                 min-h-[160px] sm:min-h-0 w-full sm:h-full touch-manipulation
@@ -86,20 +86,29 @@ export const AnimalGrid: React.FC = () => {
               )}
 
               {/* Top Animal Name */}
-              <div className="w-full text-center mb-1">
-                <span className={`text-base sm:text-lg md:text-xl font-black tracking-wide drop-shadow-sm truncate block ${animal.textColor}`}>
+              <div className="w-full flex items-center justify-between px-1 mb-1 z-10">
+                <span className={`text-sm sm:text-base md:text-lg font-black tracking-wide truncate ${animal.textColor}`}>
                   {animal.name}
                 </span>
+                <span className="text-xl sm:text-2xl">{animal.emoji}</span>
               </div>
 
-              {/* Center Emoji Graphic (Exact font-size: 7rem) */}
-              <div className="my-auto flex items-center justify-center">
-                <span 
-                  className={`transition-transform group-hover:scale-110 leading-none select-none ${isActive ? 'animate-bounce' : ''}`}
-                  style={{ fontSize: '7rem' }}
-                >
-                  {animal.emoji}
-                </span>
+              {/* Real Animal Photo Frame */}
+              <div className="w-full flex-1 rounded-xl overflow-hidden shadow-inner bg-black/10 relative">
+                <img
+                  src={animal.imageUrl}
+                  alt={animal.name}
+                  loading="lazy"
+                  className={`w-full h-full object-cover transform transition-transform duration-300 ${
+                    isActive ? 'scale-110' : 'hover:scale-105'
+                  }`}
+                  onError={(e) => {
+                    (e.target as HTMLElement).style.display = 'none';
+                  }}
+                />
+                <div className="absolute bottom-1 right-1 bg-white/90 text-slate-900 text-[10px] font-black px-1.5 py-0.5 rounded-md shadow">
+                  🔊 Tap!
+                </div>
               </div>
             </div>
           );
