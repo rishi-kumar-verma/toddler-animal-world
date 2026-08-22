@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { HubDashboard } from './components/HubDashboard';
+import { RacingHub } from './components/racing/RacingHub';
 import { IndiaHub } from './components/india/IndiaHub';
 import { HindiHub } from './components/hindi/HindiHub';
 import { MusicHub } from './components/music/MusicHub';
@@ -50,7 +51,7 @@ export default function App() {
           </h1>
 
           <p className="text-lg sm:text-xl font-bold text-slate-900 max-w-2xl mb-6 drop-shadow-sm">
-            Incredible India • Hindi • Marvel Superheroes • Piano & Music • Vehicles • Fruits & Veggies • Science & Planets • Math • Geography • History • Animal World
+            Turbo Car Racing • Incredible India • Hindi • Marvel Superheroes • Piano & Music • Vehicles • Fruits • Science • Math • Animals
           </p>
 
           <div className="flex flex-wrap justify-center gap-2 mb-8 max-w-lg">
@@ -99,6 +100,7 @@ export default function App() {
                 onSelectCategory={setCurrentCategory}
               />
             )}
+            {currentCategory === 'racing' && <RacingHub />}
             {currentCategory === 'india' && <IndiaHub />}
             {currentCategory === 'hindi' && <HindiHub />}
             {currentCategory === 'music' && <MusicHub />}

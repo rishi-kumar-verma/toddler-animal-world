@@ -24,6 +24,19 @@ interface HubCard {
 
 const HUB_CARDS: HubCard[] = [
   {
+    id: 'racing',
+    title: 'टर्बो कार रेसिंग (Kids Turbo Racers)',
+    subtitle: 'High-Speed Arcade Racing, Nitro Boost & Trophies!',
+    emoji: '🏎️',
+    badge: 'कार रेसिंग गेम',
+    bgGradient: 'from-red-600 via-rose-600 to-amber-500',
+    borderColor: 'border-yellow-300',
+    textColor: 'text-white',
+    bestAges: ['2', '3', '4'],
+    itemsPreview: ['🏎️ Red Supercar', '🚓 Police Cruiser', '🦖 Dino-Kart', '🏆 Trophy Podium'],
+    speechGreeting: 'Ready, Set, Go! Welcome to Kids Turbo Racing Championship!'
+  },
+  {
     id: 'india',
     title: 'अतुल्य भारत (Incredible India)',
     subtitle: 'Indian States, Famous Cities & Freedom Fighters!',

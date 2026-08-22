@@ -2,6 +2,7 @@ export type AgeCategory = 'all' | '2' | '3' | '4';
 
 export type HubCategory = 
   | 'hub'
+  | 'racing'
   | 'india'
   | 'hindi'
   | 'superheroes'
@@ -13,6 +14,30 @@ export type HubCategory =
   | 'geography'
   | 'history'
   | 'animals';
+
+export interface RacerCar {
+  id: string;
+  name: string;
+  hindiName: string;
+  emoji: string;
+  colorGradient: string;
+  topSpeed: number;
+  acceleration: number;
+  specialMove: string;
+  soundType: 'supercar' | 'police' | 'fire' | 'dino' | 'rocket' | 'batmobile';
+}
+
+export interface RaceTrack {
+  id: string;
+  name: string;
+  hindiName: string;
+  emoji: string;
+  bgGradient: string;
+  roadColor: string;
+  trackTheme: 'rainbow' | 'jungle' | 'neon' | 'candy';
+  obstacleEmoji: string[];
+  collectibleEmoji: string;
+}
 
 export interface MusicalInstrument {
   id: string;
