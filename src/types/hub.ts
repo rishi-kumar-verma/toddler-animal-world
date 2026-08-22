@@ -197,20 +197,38 @@ export interface WorldLandmark {
 export interface HistoryEra {
   id: string;
   title: string;
+  hindiTitle: string;
   timePeriod: string;
+  yearValue: number;
   emoji: string;
   imageUrl: string;
   color: string;
   highlights: string[];
   story: string;
+  soundType: 'dino' | 'ancient' | 'sword' | 'steam' | 'rocket' | 'chime';
 }
 
 export interface Invention {
   id: string;
   name: string;
+  hindiName: string;
   emoji: string;
   imageUrl: string;
   year: string;
   inventorOrEra: string;
   whyAwesome: string;
+  impactCategory: 'transport' | 'communication' | 'science' | 'daily';
+}
+
+export interface HistoricalFigure {
+  id: string;
+  name: string;
+  hindiName: string;
+  title: string;
+  era: string;
+  emoji: string;
+  imageUrl: string;
+  quote: string;
+  achievement: string;
+  color: string;
 }
