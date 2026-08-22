@@ -47,6 +47,24 @@ export function preloadAnimalSounds() {
   });
 }
 
+// Stop all cached playing audio elements & speech
+export function stopAllAnimalSounds() {
+  try {
+    Object.values(audioCache).forEach((audio) => {
+      try {
+        audio.pause();
+        audio.currentTime = 0;
+      } catch (e) {}
+    });
+  } catch (e) {}
+
+  if ('speechSynthesis' in window) {
+    try {
+      window.speechSynthesis.cancel();
+    } catch (e) {}
+  }
+}
+
 // Speak the animal name using Web Speech API with pitch & rate tuned for toddler friendliness
 export function speakText(text: string, pitch = 1.2, rate = 0.95) {
   if ('speechSynthesis' in window) {

@@ -1,8 +1,16 @@
 // Hindi Speech Synthesis Helper for Kids Hub
 
+export function stopAllSpeech() {
+  if ('speechSynthesis' in window) {
+    try {
+      window.speechSynthesis.cancel();
+    } catch (e) {}
+  }
+}
+
 export function speakHindi(text: string, pitch = 1.25, rate = 0.9) {
   if ('speechSynthesis' in window) {
-    window.speechSynthesis.cancel();
+    stopAllSpeech();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.pitch = pitch;
     utterance.rate = rate;

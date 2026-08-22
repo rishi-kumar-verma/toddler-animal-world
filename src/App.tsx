@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { HubDashboard } from './components/HubDashboard';
-import { RacingHub } from './components/racing/RacingHub';
+import { Real3DRacingGame } from './components/racing/Real3DRacingGame';
 import { IndiaHub } from './components/india/IndiaHub';
 import { HindiHub } from './components/hindi/HindiHub';
 import { MusicHub } from './components/music/MusicHub';
@@ -14,7 +14,8 @@ import { GeographyHub } from './components/geography/GeographyHub';
 import { HistoryHub } from './components/history/HistoryHub';
 import { AnimalsHub } from './components/animals/AnimalsHub';
 import { FloatingBubbles } from './components/FloatingBubbles';
-import { playPopSound, speakText, preloadAnimalSounds } from './audio/animalSounds';
+import { playPopSound, speakText, preloadAnimalSounds, stopAllAnimalSounds } from './audio/animalSounds';
+import { stopAllSpeech } from './audio/hindiSpeech';
 import { Volume2, Play, Sparkles } from 'lucide-react';
 import { AgeCategory, HubCategory } from './types/hub';
 
@@ -29,6 +30,12 @@ export default function App() {
     playPopSound();
     speakText('Welcome to Kids Learning and Games Hub! Let us play and learn!');
     setHasStarted(true);
+  };
+
+  const handleSelectCategory = (category: HubCategory) => {
+    stopAllAnimalSounds();
+    stopAllSpeech();
+    setCurrentCategory(category);
   };
 
   return (
@@ -85,7 +92,7 @@ export default function App() {
           {/* Main Navigation with Age & Lock Controls */}
           <Navbar
             currentCategory={currentCategory}
-            onSelectCategory={setCurrentCategory}
+            onSelectCategory={handleSelectCategory}
             currentAge={currentAge}
             onSelectAge={setCurrentAge}
             isLocked={isLocked}
@@ -97,10 +104,10 @@ export default function App() {
             {currentCategory === 'hub' && (
               <HubDashboard
                 currentAge={currentAge}
-                onSelectCategory={setCurrentCategory}
+                onSelectCategory={handleSelectCategory}
               />
             )}
-            {currentCategory === 'racing' && <RacingHub />}
+            {currentCategory === 'racing' && <Real3DRacingGame />}
             {currentCategory === 'india' && <IndiaHub />}
             {currentCategory === 'hindi' && <HindiHub />}
             {currentCategory === 'music' && <MusicHub />}
